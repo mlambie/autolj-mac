@@ -45,7 +45,7 @@ if [[ -z "$init" ]]; then
     test -z "$zip"    &&  { echo "Variable not set: zip"; exit 1; }
     test "$do_notify" -ne 1  &&  unset do_notify
 
-    test "$do_notify"  &&  test -x /usr/bin/notify-send  &&  notify_send_bin=/usr/bin/notify-send
+    test "$do_notify"  &&  test -x /usr/local/bin/terminal-notifier  &&  notify_send_bin=/usr/local/bin/terminal-notifier
 
     get_link_url="https://secure2.linuxjournal.com/pdf/get-link.php"
 
@@ -85,17 +85,17 @@ if [[ -z "$init" ]]; then
                 if $testpfx curl --silent --output "$opath" "$url"; then
                     msg="$(eval echo -e "$notify_msg")"
                     echo $msg   # no quotes (eliminates newlines)
-                    test -n "$notify_send_bin"  &&  "$notify_send_bin" --icon="$notify_img" "$msg"
+                    test -n "$notify_send_bin"  &&  "$notify_send_bin" -title "Linux Journal" -appIcon "$notify_img" -message "$msg"
                 else
                     msg="ERROR: Unable to download Linux Journal ${doc^^}"
                     echo "$msg"
-                    test -n "$notify_send_bin"  &&  "$notify_send_bin" --icon="$notify_img" "$msg"
+                    test -n "$notify_send_bin"  &&  "$notify_send_bin" -title "Linux Journal" -appIcon "$notify_img" -message "$msg"
                 fi
             fi
         else
             msg="ERROR: $resp (Linux Journal ${doc^^})"
             echo "$msg"
-            test -n "$notify_send_bin"  &&  "$notify_send_bin"  --icon="$notify_img" "$msg"
+            test -n "$notify_send_bin"  &&  "$notify_send_bin" -title "Linux Journal" -appIcon "$notify_img" -message "$msg"
         fi
     done
 else
