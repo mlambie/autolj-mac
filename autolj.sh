@@ -135,7 +135,7 @@ doctypes='pdf'
 save_dir='\$HOME/linuxjournal/issues'
 
 # File name.
-save_file='LJ-\$(printf %03d \${inum})-\$year-\$(printf %02d \${month}).\${doc}'
+save_file='LJ-\$(printf %03d \${inum})-\$year-\$(printf %02d \${month#0}).\${doc}'
 
 # Notification message (also eval'd).
 notify_msg='The \$(date +%B --date \${month}/1) \${year} Linux Journal \${doc^^}\\\\nhas been downloaded.'
